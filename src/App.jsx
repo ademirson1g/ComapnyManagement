@@ -1,14 +1,15 @@
-import { useState } from 'react'
+import React from 'react'
 
-import './App.css'
+import AppRoutes from './organism/Routes/AppRoutes'
+
+const GoogleAuthContext = React.createContext()
 
 function App() {
-  const [count, setCount] = useState(0)
 
   return (
-    <div>
-      Main App
-    </div>
+    <GoogleAuthContext.Provider value={import.meta.env.VITE_REACT_APP_GOOGLE_CLIENT_ID}>
+      <AppRoutes />
+    </GoogleAuthContext.Provider>
   )
 }
 
