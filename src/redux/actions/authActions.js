@@ -1,29 +1,28 @@
 import axios from 'axios'
 
-import { LOGIN, LOGOUT } from '../reducers/reducerExports'
+import { LOGIN, LOGOUT } from '../reducers/reducerExports/reducerExports'
+import { createUser } from '../api/apiService';
+import { updateQueryParams } from '../utils/queryParamUtils';
 
 export const login = (idToken) => {
     return async (dispatch) => {
         try {
-            // Set Authorization header with idToken
-            axios.defaults.headers.common['Authorization'] = `Bearer ${idToken}`
-
-            // Call the /me endpoint to create the user or validate the existing user
-            await axios.get(`${import.meta.env.VITE_REACT_APP_API_URL}/me`)
-
-            // Dispatch the login action with the idToken
+            await createUser(idToken)
             dispatch({
                 type: LOGIN,
-                payload: {
-                    idToken
-                },
-            })
+                payload: idToken,
+            });
+            updateQueryParams(idToken);
         } catch (error) {
-            console.error(error)
+            console.error(error);
         }
-    }
-}
+    };
+};
 
-export const logout = () => ({
-    type: LOGOUT
-})
+export const logout = () => {
+    return (dispatch) => {
+        // Later refactor
+        delete axios.defaults.headers.common['Authorization'];
+        dispatch({ type: LOGOUT });
+    };
+};

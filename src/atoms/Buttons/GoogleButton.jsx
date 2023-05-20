@@ -3,7 +3,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 
 import { HOMEPAGE_COMPANY_TEXT, LOGIN_GOOGLE_BUTTON_TEXT, LOGIN_GOOGLE } from '../TextExports/TextExports'
-import Companies from '../../molecules/Company/Companies'
+import Companies from '../../molecules/Company/CompanyPage'
 
 const GoogleButton = ({ isAuthenticated, handleSignIn }) => {
     if (!isAuthenticated) {
