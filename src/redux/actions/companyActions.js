@@ -1,14 +1,27 @@
-import { fetchCompanies, addCompany, updateCompany, deleteCompany } from '../api/apiService';
-import { ADD_COMPANY, DELETE_COMPANY, FETCH_COMPANIES, UPDATE_COMPANY } from '../reducers/reducerExports/reducerExports';
+import { fetchCompanies, addCompany, updateCompany, deleteCompany, fetchCompanyById } from '../api/apiService';
+import { ADD_COMPANY, DELETE_COMPANY, FETCH_COMPANIES, FETCH_COMPANY_BY_ID, UPDATE_COMPANY } from '../reducers/reducerExports/reducerExports';
 
-export const fetchCompaniesAction = () => {
-    return async (dispatch, getState) => {
-        const { idToken } = getState().auth;
+export const fetchCompaniesAction = (search, pageIndex, pageSize) => {
+    return async (dispatch) => {
         try {
-            const companies = await fetchCompanies(idToken);
+            const companies = await fetchCompanies(search, pageIndex, pageSize);
             dispatch({
                 type: FETCH_COMPANIES,
                 payload: companies,
+            });
+        } catch (error) {
+            console.error(error);
+        }
+    };
+};
+
+export const fetchCompanyByIdAction = (companyId) => {
+    return async (dispatch) => {
+        try {
+            const company = await fetchCompanyById(companyId);
+            dispatch({
+                type: FETCH_COMPANY_BY_ID,
+                payload: company
             });
         } catch (error) {
             console.error(error);
@@ -50,7 +63,7 @@ export const deleteCompanyAction = (companyId) => {
             await deleteCompany(companyId);
             dispatch({
                 type: DELETE_COMPANY,
-                payload: companyId,
+                payload: companyId
             });
         } catch (error) {
             console.error(error);

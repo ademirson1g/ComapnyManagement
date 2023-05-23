@@ -1,13 +1,14 @@
 import React from 'react'
 import { useGoogleLogin } from 'react-use-googlelogin'
-import { useDispatch, useSelector } from 'react-redux'
+import { useDispatch } from 'react-redux'
 
 import { login } from '../../redux/actions/authActions'
-import GoogleButton from '../../atoms/Buttons/GoogleButton'
+import HomePageLogin from './HomePageLogin'
+import { checkAuth } from '../../redux/api/apiCallAuth'
 
 const Homepage = () => {
     const dispatch = useDispatch()
-    const isAuthenticated = useSelector((state) => state.auth.isAuthenticated)
+    const isAuthenticated = checkAuth()
 
     const { signIn } = useGoogleLogin({
         clientId: import.meta.env.VITE_REACT_APP_GOOGLE_CLIENT_ID,
@@ -20,7 +21,7 @@ const Homepage = () => {
     }
 
     return (
-        <GoogleButton
+        <HomePageLogin
             isAuthenticated={isAuthenticated}
             handleSignIn={handleSignIn}
         />

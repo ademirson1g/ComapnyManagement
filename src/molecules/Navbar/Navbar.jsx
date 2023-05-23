@@ -1,41 +1,49 @@
-import React from 'react'
-import { useDispatch, useSelector } from 'react-redux'
-import { AppBar, Box, Button, Toolbar, Typography } from '@mui/material'
+import React, { useState, useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { AppBar, Button, Toolbar, Typography } from '@mui/material';
 
-import { logout } from '../../redux/actions/authActions'
+import { logout } from '../../redux/actions/authActions';
+import SubNavbar from './SubNavbar';
+import { checkAuth } from '../../redux/api/apiCallAuth';
+import { useNavigate } from 'react-router';
 
-export default function Navbar() {
-    const dispatch = useDispatch()
-    const isAuthenticated = useSelector((state) => state.auth.isAuthenticated)
+const Navbar = () => {
+    const dispatch = useDispatch();
+    const navigate = useNavigate();
+
+    const [isAuthenticated, setIsAuthenticated] = useState(null);
+    const initialLogin = useSelector((state) => state.auth.isAuthenticated)
+
+    useEffect(() => {
+        setIsAuthenticated(checkAuth())
+    }, [initialLogin])
 
     const handleLogout = () => {
-        dispatch(logout())
-    }
-
-    const getText = () => {
-        return isAuthenticated ? 'Companies' : 'Home'
-    }
+        dispatch(logout());
+    };
 
     return (
-        <Box sx={{ flexGrow: 1 }}>
-            <AppBar position="static" sx={{ backgroundColor: '#93ACBD' }}>
-                <Toolbar>
-                    <Typography
-                        variant="h6"
-                        component="div"
-                        sx={{
-                            flexGrow: 1,
-                            textAlign: 'center'
-                        }}>
-                        {getText()}
-                    </Typography>
-                    {isAuthenticated && (
-                        <Button color="inherit" onClick={handleLogout}>
-                            Logout
-                        </Button>
-                    )}
-                </Toolbar>
-            </AppBar>
-        </Box>
-    )
-}
+        <AppBar sx={{ backgroundColor: '#93ACBD' }}>
+            <Toolbar
+                sx={{
+                    justifyContent: 'space-between',
+                    borderBottom: '1px solid black',
+                }}
+            >
+                <Typography sx={{ color: 'black', fontSize: '30px' }}>
+                    {isAuthenticated ? 'Companies' : 'Home'}
+                </Typography>
+                {isAuthenticated && (
+                    <Button onClick={handleLogout} sx={{ color: 'black' }}>
+                        Logout
+                    </Button>
+                )}
+            </Toolbar>
+            <SubNavbar
+                isAuthenticated={isAuthenticated}
+            />
+        </AppBar>
+    );
+};
+
+export default Navbar;

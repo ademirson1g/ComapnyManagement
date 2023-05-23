@@ -17,6 +17,7 @@ const Pagination = ({ currentPage, totalPages, onPageChange }) => {
                     variant={i === currentPage ? 'contained' : 'outlined'}
                     color="primary"
                     onClick={() => handlePageChange(i)}
+                    disabled={i === currentPage}
                 >
                     {i}
                 </Button>
@@ -25,11 +26,11 @@ const Pagination = ({ currentPage, totalPages, onPageChange }) => {
         return pageNumbers;
     };
 
-    return (
-        <ButtonGroup>
-            {renderPageNumbers()}
-        </ButtonGroup>
-    );
+    if (totalPages <= 1) {
+        return null
+    }
+
+    return <ButtonGroup>{renderPageNumbers()}</ButtonGroup>;
 };
 
 Pagination.propTypes = {

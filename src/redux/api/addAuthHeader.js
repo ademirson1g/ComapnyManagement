@@ -1,9 +1,9 @@
-import { getAuthToken } from "../utils/queryParamUtils";
+import { getAuthToken } from "../utils/queryParamUtils"
 
 export const addAuthHeader = (config) => {
-    const idToken = getAuthToken();
+    const idToken = getAuthToken()
     if (idToken) {
-        config.headers.Authorization = `Bearer ${idToken}`;
+        config.headers.Authorization = `Bearer ${idToken}`
     }
-    return config;
-};
+    return config
+}

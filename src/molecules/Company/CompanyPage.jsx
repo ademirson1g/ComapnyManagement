@@ -1,38 +1,33 @@
-import React, { useEffect, useState } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
-import { Box, Grid } from '@mui/material';
+import React, { useEffect } from 'react'
+import { useSelector, useDispatch } from 'react-redux'
+import { Box, Grid } from '@mui/material'
+import { Link } from 'react-router-dom'
 
-import { fetchCompaniesAction } from '../../redux/actions/companyActions';
-import CompanyPageCard from './CompanyPageCard';
-import Pagination from '../../atoms/Pagination/Pagination';
+import { fetchCompaniesAction } from '../../redux/actions/companyActions'
+import CompanyPageCard from './CompanyPageCard'
+import ReusableButton from '../../atoms/Buttons/ReusableButton'
 
 const Companies = () => {
-    const dispatch = useDispatch();
-    const companies = useSelector((state) => state.companies.items);
-
-    const [currentPage, setCurrentPage] = useState(1);
-    const [itemsPerPage] = useState(8);
+    const dispatch = useDispatch()
+    const companies = useSelector((state) => state.companies.items)
+    const isAuthenticated = useSelector((state) => state.auth.isAuthenticated)
 
     useEffect(() => {
-        dispatch(fetchCompaniesAction());
-    }, [dispatch]);
-
-    const indexOfLastItem = currentPage * itemsPerPage;
-    const indexOfFirstItem = indexOfLastItem - itemsPerPage;
-    const currentItems = companies.slice(indexOfFirstItem, indexOfLastItem);
-    const totalPages = Math.ceil(companies.length / itemsPerPage);
-
-    const handlePageChange = (pageNumber) => {
-        setCurrentPage(pageNumber);
-    };
+        dispatch(fetchCompaniesAction())
+    }, [dispatch])
 
     return (
-        <div>
-            <h1>Company List</h1>
-            <hr />
-            <Grid container spacing={6}>
-                {currentItems.map((company) => (
-                    <CompanyPageCard key={company.companyId} company={company} />
+        <div style={{ marginTop: '150px' }}>
+            <Link to="/draggable_companies">
+                <ReusableButton>Draggable Companies</ReusableButton>
+            </Link>
+            <Grid container spacing={6} sx={{ marginTop: '5px' }}>
+                {companies.map((company) => (
+                    <CompanyPageCard
+                        key={company.companyId}
+                        company={company}
+                        isAuthenticated={isAuthenticated}
+                    />
                 ))}
             </Grid>
             <Box
@@ -42,14 +37,9 @@ const Companies = () => {
                 transform="translateX(-50%)"
                 maxWidth={400}
             >
-                <Pagination
-                    currentPage={currentPage}
-                    totalPages={totalPages}
-                    onPageChange={handlePageChange}
-                />
             </Box>
         </div>
-    );
-};
+    )
+}
 
-export default Companies;
+export default Companies
