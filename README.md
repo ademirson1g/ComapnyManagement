@@ -64,14 +64,25 @@ I have decided to use the Atomic pattern.The Atomic Design pattern was chosen fo
 
 ## Screenshots of the project
 ## DESKTOP VERSION
+## Homepage Login Screen
 ![image search api](https://i.ibb.co/D8G1spW/Unknown-1.png)
+## Homepage After login
 ![image search api](https://i.ibb.co/4Fzdfn9/Unknown-2.png)
+## Add Screen
 ![image search api](https://i.ibb.co/jG9tWmS/3.png)
+## Homepage when company is added
 ![image search api](https://i.ibb.co/zRqg2L5/5.png)
+## Edit Company Screen
 ![image search api](https://i.ibb.co/s5364Vy/6.png)
+## Delete Modal
 ![image search api](https://i.ibb.co/Nxvj1py/7.png)
+## Drag and Drop before company is dragged
 ![image search api](https://i.ibb.co/1nqPfHS/8.png)
+## Drag and Drop after company is dragged
 ![image search api](https://gcdnb.pbrd.co/images/mrsdP5ZrcN2X.png?o=1)
-![image search api](https://i.ibb.co/99ydMBQ/10.png)
+## Show More 
+![image search api](https://gcdnb.pbrd.co/images/3UfPxh6pq1K2.png?o=1)
+## Show Less
 ![image search api](https://gcdnb.pbrd.co/images/7YXW9es3HaDI.png?o=1)
+## Route/Page not found
 ![image search api](https://gcdnb.pbrd.co/images/IbaA6vBVh5Hj.png?o=1)
