@@ -15,6 +15,8 @@ If the user is not logged in:
 <br/>
 <li>There is a page for editing a company.</li>
 <br/>
+<li>Pagination if there are more then 8 companies on screen and search.</li>
+<br/>
 <li>There is a page for deleting a company.</li>
 <br/>
 <li>There is a page where companies are displayed on the left side and can be dragged and dropped to the right side and vice versa.</li>
