@@ -7,9 +7,10 @@ import { FaGoogle } from 'react-icons/fa'
 import { GOOGLE, HOMEPAGE_COMPANY_TEXT, LOGIN_GOOGLE } from '../../atoms/TextExports/TextExports'
 import Companies from '../Company/CompanyPage'
 import ReusableButton from '../../atoms/Buttons/ReusableButton'
+import SubNavbar from '../Navbar/SubNavbar'
 
-const HomePageLogin = ({ isAuthenticated, handleSignIn, handleLogout }) => {
-    if (!isAuthenticated) {
+const HomePageLogin = ({ isAuth, handleSignIn }) => {
+    if (!isAuth) {
         return (
             <Box
                 sx={{
@@ -38,13 +39,20 @@ const HomePageLogin = ({ isAuthenticated, handleSignIn, handleLogout }) => {
         )
     }
     return (
-        <Companies />
+        <div>
+            <div style={{ marginTop: "70px" }}>
+                <SubNavbar
+                    isAuth={isAuth}
+                />
+            </div>
+            <Companies />
+        </div>
     )
 }
 
 HomePageLogin.propTypes = {
-    isAuthenticated: PropTypes.bool.isRequired,
-    handleSignIn: PropTypes.func.isRequired
+    handleSignIn: PropTypes.func.isRequired,
+    isAuth: PropTypes.bool
 }
 
 export default HomePageLogin

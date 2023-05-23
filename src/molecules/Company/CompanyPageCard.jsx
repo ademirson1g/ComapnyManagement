@@ -1,44 +1,45 @@
-import React, { useState } from 'react';
-import PropTypes from 'prop-types';
-import { CardContent, CardActions } from '@mui/material';
-import { FaEdit, FaTrash } from 'react-icons/fa';
-import { Link } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
+import React, { useState } from 'react'
+import PropTypes from 'prop-types'
 
-import Card from '../../atoms/Card/Card';
-import CompanyPageDeleteModal from './CompanyPageDeleteModal';
-import { deleteCompanyAction, fetchCompaniesAction, fetchCompanyByIdAction } from '../../redux/actions/companyActions';
+import { CardContent, CardActions } from '@mui/material'
+import { FaEdit, FaTrash } from 'react-icons/fa'
+import { Link } from 'react-router-dom'
+import { useDispatch } from 'react-redux'
 
-const CompanyPageCard = ({ company, isAuthenticated }) => {
-    const dispatch = useDispatch();
+import Card from '../../atoms/Card/Card'
+import CompanyPageDeleteModal from './CompanyPageDeleteModal'
+import { deleteCompanyAction, fetchCompaniesAction, fetchCompanyByIdAction } from '../../redux/actions/companyActions'
 
-    const { companyId, companyName } = company;
-    const [openModal, setOpenModal] = useState(false);
-    const [isDeleting, setIsDeleting] = useState(false);
+const CompanyPageCard = ({ company }) => {
+    const dispatch = useDispatch()
+
+    const { companyId, companyName } = company
+    const [openModal, setOpenModal] = useState(false)
+    const [isDeleting, setIsDeleting] = useState(false)
 
     const handleOpenModal = () => {
-        setOpenModal(true);
-    };
+        setOpenModal(true)
+    }
 
     const handleCloseModal = () => {
-        setOpenModal(false);
-    };
+        setOpenModal(false)
+    }
 
     const handleDelete = async () => {
-        setIsDeleting(true);
-        await dispatch(deleteCompanyAction(companyId));
-        setIsDeleting(false);
+        setIsDeleting(true)
+        await dispatch(deleteCompanyAction(companyId))
+        setIsDeleting(false)
         dispatch(fetchCompaniesAction())
-    };
+    }
 
     const handleEdit = () => {
-        dispatch(fetchCompanyByIdAction(companyId));
-    };
+        dispatch(fetchCompanyByIdAction(companyId))
+    }
 
     return (
         <Card>
             <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-                <CardContent>{companyName}</CardContent>
+                <CardContent sx={{ overflow: "hidden" }}>{companyName}</CardContent>
                 <CardActions sx={{ cursor: 'pointer' }}>
                     <Link to={'/edit/'} onClick={handleEdit}>
                         <CardActions sx={{ color: 'black' }}>
@@ -56,11 +57,11 @@ const CompanyPageCard = ({ company, isAuthenticated }) => {
                 isLoading={isDeleting}
             />
         </Card>
-    );
-};
+    )
+}
 
 CompanyPageCard.propTypes = {
     company: PropTypes.object.isRequired,
-};
+}
 
-export default CompanyPageCard;
+export default CompanyPageCard

@@ -4,11 +4,12 @@ import { useDispatch } from 'react-redux'
 
 import { login } from '../../redux/actions/authActions'
 import HomePageLogin from './HomePageLogin'
-import { checkAuth } from '../../redux/api/apiCallAuth'
+import { useSelector } from 'react-redux'
 
 const Homepage = () => {
     const dispatch = useDispatch()
-    const isAuthenticated = checkAuth()
+
+    const isAuth = useSelector((state => state.auth.isAuthenticated))
 
     const { signIn } = useGoogleLogin({
         clientId: import.meta.env.VITE_REACT_APP_GOOGLE_CLIENT_ID,
@@ -21,10 +22,13 @@ const Homepage = () => {
     }
 
     return (
-        <HomePageLogin
-            isAuthenticated={isAuthenticated}
-            handleSignIn={handleSignIn}
-        />
+        <div>
+            <HomePageLogin
+                isAuth={isAuth}
+                handleSignIn={handleSignIn}
+            />
+        </div>
+
     )
 }
 

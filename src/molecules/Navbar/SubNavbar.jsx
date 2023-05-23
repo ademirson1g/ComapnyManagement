@@ -8,7 +8,7 @@ import { useDispatch } from 'react-redux'
 import { useDebounce } from '../../hooks/useDebounce'
 import { fetchCompaniesAction } from '../../redux/actions/companyActions'
 
-const SubNavbar = ({ isAuthenticated }) => {
+const SubNavbar = ({ isAuth }) => {
     const dispatch = useDispatch()
     const [searchCompanyTerm, setSearchCompanyTerm] = useState('')
     const debouncedSearchCompanyTerm = useDebounce(searchCompanyTerm, 500)
@@ -18,12 +18,14 @@ const SubNavbar = ({ isAuthenticated }) => {
     }
 
     useEffect(() => {
-        dispatch(fetchCompaniesAction(debouncedSearchCompanyTerm))
-    }, [debouncedSearchCompanyTerm, dispatch])
+        if (isAuth) {
+            dispatch(fetchCompaniesAction(debouncedSearchCompanyTerm));
+        }
+    }, [debouncedSearchCompanyTerm, dispatch, isAuth]);
 
     return (
         <div>
-            {isAuthenticated && (
+            {isAuth && (
                 <Box
                     sx={{
                         display: 'flex',
@@ -61,7 +63,8 @@ const SubNavbar = ({ isAuthenticated }) => {
 }
 
 SubNavbar.propTypes = {
-    isAuthenticated: PropTypes.bool.isRequired,
+    isAuthenticateds: PropTypes.bool,
+    isAuth: PropTypes.bool
 }
 
 export default SubNavbar

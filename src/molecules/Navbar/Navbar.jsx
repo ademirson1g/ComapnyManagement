@@ -1,26 +1,25 @@
-import React, { useState, useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { AppBar, Button, Toolbar, Typography } from '@mui/material';
+import React, { useState, useEffect } from 'react'
 
-import { logout } from '../../redux/actions/authActions';
-import SubNavbar from './SubNavbar';
-import { checkAuth } from '../../redux/api/apiCallAuth';
-import { useNavigate } from 'react-router';
+import { useDispatch, useSelector } from 'react-redux'
+import { AppBar, Button, Toolbar, Typography } from '@mui/material'
+
+import { logout } from '../../redux/actions/authActions'
+import { checkAuth } from '../../redux/api/apiCallAuth'
+import { LOGOUT } from '../../atoms/TextExports/TextExports'
 
 const Navbar = () => {
-    const dispatch = useDispatch();
-    const navigate = useNavigate();
-
-    const [isAuthenticated, setIsAuthenticated] = useState(null);
+    const dispatch = useDispatch()
     const initialLogin = useSelector((state) => state.auth.isAuthenticated)
+
+    const [isAuthenticated, setIsAuthenticated] = useState(initialLogin);
 
     useEffect(() => {
         setIsAuthenticated(checkAuth())
     }, [initialLogin])
 
     const handleLogout = () => {
-        dispatch(logout());
-    };
+        dispatch(logout())
+    }
 
     return (
         <AppBar sx={{ backgroundColor: '#93ACBD' }}>
@@ -35,15 +34,12 @@ const Navbar = () => {
                 </Typography>
                 {isAuthenticated && (
                     <Button onClick={handleLogout} sx={{ color: 'black' }}>
-                        Logout
+                        {LOGOUT}
                     </Button>
                 )}
             </Toolbar>
-            <SubNavbar
-                isAuthenticated={isAuthenticated}
-            />
         </AppBar>
-    );
-};
+    )
+}
 
-export default Navbar;
+export default Navbar

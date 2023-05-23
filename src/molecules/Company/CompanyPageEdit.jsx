@@ -1,10 +1,13 @@
 import React, { useEffect, useState } from 'react';
+
 import { useDispatch, useSelector } from 'react-redux';
-import { Box, TextField } from '@mui/material';
-import Card from '../../atoms/Card/Card';
+import { Box, TextField, Typography } from '@mui/material';
 import { useNavigate } from 'react-router';
-import ReusableButton from '../../atoms/Buttons/ReusableButton';
+
 import { updateCompanyAction } from '../../redux/actions/companyActions';
+import Card from '../../atoms/Card/Card';
+import ReusableButton from '../../atoms/Buttons/ReusableButton';
+import { CANCEL, EDIT_COMPANY, SAVE } from '../../atoms/TextExports/TextExports';
 
 const CompanyPageEdit = () => {
     const navigate = useNavigate()
@@ -14,6 +17,7 @@ const CompanyPageEdit = () => {
     const isAuthenticated = useSelector((state) => state.auth.isAuthenticated)
 
     const [editedCompanyName, setEditedCompanyName] = useState('');
+    const [error, setError] = useState('')
 
     useEffect(() => {
         if (companyNameById) {
@@ -22,12 +26,15 @@ const CompanyPageEdit = () => {
     }, [companyNameById]);
 
     const handleSave = async () => {
-        dispatch(updateCompanyAction(
+        await dispatch(updateCompanyAction(
             companyNameById.companyId,
             {
                 companyName: editedCompanyName
-            }));
-        navigate(-1);
+            })).then(() => {
+                navigate(-1);
+            }).catch((error) => {
+                setError(error.message);
+            });
     }
 
     const handleCancel = () => {
@@ -40,23 +47,24 @@ const CompanyPageEdit = () => {
                 <Card>
                     <Box>
                         <TextField
-                            label="Edit your company"
+                            label={EDIT_COMPANY}
                             value={editedCompanyName}
                             onChange={(event) => setEditedCompanyName(event.target.value)}
                             fullWidth
                             margin="normal"
                         />
+                        {error && <Typography variant="body2" color="error">{error}</Typography>}
                         <div style={{ display: "flex", marginBottom: "20px", padding: "5px" }}>
                             <ReusableButton
                                 onClick={handleSave}
                             >
-                                Save
+                                {SAVE}
                             </ReusableButton>
                             <ReusableButton
                                 style={{ marginLeft: "10px" }}
                                 onClick={handleCancel}
                             >
-                                Cancel
+                                {CANCEL}
                             </ReusableButton>
                         </div>
                     </Box>

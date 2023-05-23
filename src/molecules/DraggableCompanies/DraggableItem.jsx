@@ -1,5 +1,6 @@
 import React from 'react';
 import { Draggable } from 'react-beautiful-dnd';
+
 import DraggableItemName from './DraggableItemName';
 
 const DraggableItem = ({ item, index }) => {

@@ -1,4 +1,5 @@
 import jwtDecode from 'jwt-decode';
+
 import { clearAuthToken, getAuthToken } from '../utils/queryParamUtils';
 import { persistor } from '../store/store';
 
