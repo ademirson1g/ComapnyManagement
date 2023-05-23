@@ -50,6 +50,12 @@ Then run this command to start the project
 npm run dev
 ```
 
+## Branches
+```bash
+development -> used for testing
+main -> the master/main branch (production)
+```
+
 ## Patterns
 
 I have decided to use the Atomic pattern.The Atomic Design pattern was chosen for several reasons. Firstly, it promotes a modular and organized approach to UI development, allowing for easier maintenance and future updates. By breaking down the UI into atoms (small building blocks), molecules (combinations of atoms), organisms (groups of molecules) the project's UI can be efficiently constructed and managed.
@@ -63,7 +69,7 @@ I have decided to use the Atomic pattern.The Atomic Design pattern was chosen fo
 ![image search api](https://i.ibb.co/s5364Vy/6.png)
 ![image search api](https://i.ibb.co/Nxvj1py/7.png)
 ![image search api](https://i.ibb.co/1nqPfHS/8.png)
-![image search api](https://i.ibb.co/ncBjZ8S/9.png)
+![image search api](https://gcdnb.pbrd.co/images/mrsdP5ZrcN2X.png?o=1)
 ![image search api](https://i.ibb.co/99ydMBQ/10.png)
-![image search api](https://i.ibb.co/0Zr3mYV/11.png)
-![image search api](https://i.ibb.co/LQ0MT83/no.png)
+![image search api](https://gcdnb.pbrd.co/images/7YXW9es3HaDI.png?o=1)
+![image search api](https://gcdnb.pbrd.co/images/IbaA6vBVh5Hj.png?o=1)
