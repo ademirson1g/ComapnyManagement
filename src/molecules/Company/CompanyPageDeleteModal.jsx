@@ -1,18 +1,10 @@
-import React, { useState } from 'react';
+import React from 'react';
+import PropTypes from 'prop-types'
 import { Button, Dialog, DialogActions, DialogContent, DialogTitle, CircularProgress } from '@mui/material';
 
 import { DELETE_TEXT, NO, YES } from '../../atoms/TextExports/TextExports';
 
-const CompanyPageDeleteModal = ({ openModal, handleCloseModal, handleDelete, companyName }) => {
-    const [isLoading, setIsLoading] = useState(false);
-
-    const handleDeleteWithLoading = async () => {
-        setIsLoading(true);
-        await handleDelete();
-        setIsLoading(false);
-        handleCloseModal();
-    };
-
+const CompanyPageDeleteModal = ({ openModal, handleCloseModal, companyName, isLoading, handleDeleteWithLoading }) => {
     return (
         <Dialog open={openModal} onClose={handleCloseModal}>
             <DialogTitle>{DELETE_TEXT}</DialogTitle>
@@ -30,5 +22,13 @@ const CompanyPageDeleteModal = ({ openModal, handleCloseModal, handleDelete, com
         </Dialog>
     );
 };
+
+CompanyPageDeleteModal.propTypes = {
+    companyName: PropTypes.string,
+    handleCloseModal: PropTypes.func.isRequired,
+    handleDeleteWithLoading: PropTypes.func.isRequired,
+    isLoading: PropTypes.bool,
+    openModal: PropTypes.bool
+}
 
 export default CompanyPageDeleteModal;

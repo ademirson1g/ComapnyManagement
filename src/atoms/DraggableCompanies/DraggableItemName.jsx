@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { CardContent, Card, Typography } from '@mui/material';
 
 const DraggableItemName = ({ company }) => {
@@ -12,5 +13,9 @@ const DraggableItemName = ({ company }) => {
         </Card>
     );
 };
+
+DraggableItemName.propTypes = {
+    company: PropTypes.object
+}
 
 export default DraggableItemName;

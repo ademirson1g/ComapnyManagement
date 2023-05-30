@@ -5,9 +5,10 @@ import { Box, TextField, Typography } from '@mui/material';
 import { useNavigate } from 'react-router';
 
 import { updateCompanyAction } from '../../redux/actions/companyActions';
+import { CANCEL, EDIT_COMPANY, SAVE } from '../../atoms/TextExports/TextExports';
+
 import Card from '../../atoms/Card/Card';
 import ReusableButton from '../../atoms/Buttons/ReusableButton';
-import { CANCEL, EDIT_COMPANY, SAVE } from '../../atoms/TextExports/TextExports';
 
 const CompanyPageEdit = () => {
     const navigate = useNavigate()

@@ -1,11 +1,12 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 import { Droppable } from 'react-beautiful-dnd';
 import { Grid, Typography, Divider } from '@mui/material';
 
-import DraggableItem from './DraggableItem';
+import DraggableItem from '../../atoms/DraggableCompanies/DraggableItem';
 
-const Column = ({ title, droppableId, items }) => {
+const DraggableColumn = ({ title, droppableId, items }) => {
     return (
         <Grid item xs={12} sm={6}>
             <Typography variant="h5" align="center" style={{ marginBottom: '10px' }}>{title}</Typography>
@@ -33,4 +34,10 @@ const Column = ({ title, droppableId, items }) => {
     );
 };
 
-export default Column;
+DraggableColumn.propTypes = {
+    droppableId: PropTypes.string,
+    items: PropTypes.array,
+    title: PropTypes.string
+}
+
+export default DraggableColumn;

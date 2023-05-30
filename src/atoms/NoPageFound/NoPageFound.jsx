@@ -1,6 +1,7 @@
 import React from 'react';
+
 import { Link } from 'react-router-dom';
-import { Typography, Box, Button } from '@mui/material';
+import { Typography, Box } from '@mui/material';
 
 import { NOT_FOUND_TEXT, PAGE_NOT_FOUND, RETURN_TO_HOME_PAGE, RETURN_TO_HOME_PAGE_TEXT } from '../TextExports/TextExports';
 import ReusableButton from '../Buttons/ReusableButton';

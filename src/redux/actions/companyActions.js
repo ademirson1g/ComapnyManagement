@@ -1,21 +1,22 @@
 import { ERROR_MESSAGE, REQUIRED_FIELD } from '../../atoms/TextExports/TextExports'
 import { validationSchema } from '../../schemas/validationSchema'
 import { fetchCompanies, addCompany, updateCompany, deleteCompany, fetchCompanyById } from '../api/apiService'
-import { ADD_COMPANY, DELETE_COMPANY, FETCH_COMPANIES, FETCH_COMPANY_BY_ID, UPDATE_COMPANY } from '../reducers/reducerExports/reducerExports'
+import { ADD_COMPANY, DELETE_COMPANY, FETCH_COMPANIES, FETCH_COMPANIES_PENDING, FETCH_COMPANY_BY_ID, UPDATE_COMPANY } from '../reducers/reducerExports/reducerExports'
 
 export const fetchCompaniesAction = (search, pageIndex, pageSize) => {
     return async (dispatch) => {
         try {
-            const companies = await fetchCompanies(search, pageIndex, pageSize)
+            dispatch({ type: FETCH_COMPANIES_PENDING })
+            const companies = await fetchCompanies(search, pageIndex, pageSize);
             dispatch({
                 type: FETCH_COMPANIES,
-                payload: companies
-            })
+                payload: companies,
+            });
         } catch (error) {
-            throw new Error(ERROR_MESSAGE)
+            throw new Error(ERROR_MESSAGE);
         }
-    }
-}
+    };
+};
 
 export const fetchCompanyByIdAction = (companyId) => {
     return async (dispatch) => {

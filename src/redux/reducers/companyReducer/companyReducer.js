@@ -3,7 +3,8 @@ import {
     ADD_COMPANY,
     UPDATE_COMPANY,
     DELETE_COMPANY,
-    FETCH_COMPANY_BY_ID
+    FETCH_COMPANY_BY_ID,
+    FETCH_COMPANIES_PENDING
 } from '../reducerExports/reducerExports';
 
 const initialState = {
@@ -12,11 +13,17 @@ const initialState = {
     pageIndex: 0,
     pageSize: 0,
     pageCount: 0,
-    currentCompany: null
+    currentCompany: null,
+    loading: false
 };
 
 const companyReducer = (state = initialState, action) => {
     switch (action.type) {
+        case FETCH_COMPANIES_PENDING:
+            return {
+                ...state,
+                loading: true
+            };
         case FETCH_COMPANIES:
             return {
                 ...state,
