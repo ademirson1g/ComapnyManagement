@@ -1,37 +1,35 @@
 import React, { useState } from 'react'
 
 import { useSelector } from 'react-redux'
-import { Grid } from '@mui/material'
-import { DragDropContext } from 'react-beautiful-dnd'
 import { useNavigate } from 'react-router'
 
 import { BACK } from '../../atoms/TextExports/TextExports'
-import DraggableHeader from './DraggableHeader'
 import ReusableButton from '../../atoms/Buttons/ReusableButton'
+import DraggableContainer from '../../atoms/DraggableCompanies/DraggableContainer'
 
 const DraggableCompanies = () => {
-    const navigate = useNavigate()
-    const isAuthenticated = useSelector((state) => state.auth.isAuthenticated)
+    const navigate = useNavigate();
+    const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
 
     const [columns, setColumns] = useState([
         {
             title: 'Companies',
             droppableId: 'companies',
-            items: useSelector((state) => state.companies.items),
+            items: useSelector((state) => state.companies.items)
         },
         {
             title: 'Dragged Companies',
             droppableId: 'draggedCompanies',
-            items: [],
+            items: []
         },
-    ])
+    ]);
 
     const handleDragEnd = (result) => {
-        const { source, destination } = result
+        const { source, destination } = result;
 
         // If dropped outside of a valid droppable area
         if (!destination) {
-            return
+            return;
         }
 
         // If dropped in the same droppable area and at the same index
@@ -39,13 +37,13 @@ const DraggableCompanies = () => {
             source.droppableId === destination.droppableId &&
             source.index === destination.index
         ) {
-            return
+            return;
         }
 
         // Get the dragged item
         const draggedItem = columns.find(
             (column) => column.droppableId === source.droppableId
-        ).items[source.index]
+        ).items[source.index];
 
         // Remove the dragged item from the source column
         const newColumns = columns.map((column) => {
@@ -53,23 +51,23 @@ const DraggableCompanies = () => {
                 return {
                     ...column,
                     items: column.items.filter((item, index) => index !== source.index),
-                }
+                };
             }
-            return column
-        })
+            return column;
+        });
 
         // Add the dragged item to the destination column
         newColumns.forEach((column, index) => {
             if (column.droppableId === destination.droppableId) {
-                column.items.splice(destination.index, 0, draggedItem)
+                column.items.splice(destination.index, 0, draggedItem);
             }
-        })
-        setColumns(newColumns)
-    }
+        });
+        setColumns(newColumns);
+    };
 
     const handleBack = () => {
-        navigate(-1)
-    }
+        navigate(-1);
+    };
 
     return (
         <div style={{ marginTop: '60px', marginLeft: '10px', marginRight: '10px' }}>
@@ -78,15 +76,14 @@ const DraggableCompanies = () => {
                     <ReusableButton onClick={handleBack} style={{ marginBottom: '50px' }}>
                         {BACK}
                     </ReusableButton>
-                    <DragDropContext onDragEnd={handleDragEnd}>
-                        <Grid container spacing={1}>
-                            <DraggableHeader columns={columns} setColumns={setColumns} />
-                        </Grid>
-                    </DragDropContext>
+                    <DraggableContainer
+                        handleDragEnd={handleDragEnd}
+                        columns={columns}
+                        setColumns={setColumns} />
                 </>
             )}
         </div>
-    )
-}
+    );
+};
 
-export default DraggableCompanies
+export default DraggableCompanies;

@@ -6,16 +6,16 @@ import { FaEdit, FaTrash } from 'react-icons/fa'
 import { Link } from 'react-router-dom'
 import { useDispatch } from 'react-redux'
 
+import { deleteCompanyAction, fetchCompaniesAction, fetchCompanyByIdAction } from '../../redux/actions/companyActions'
 import Card from '../../atoms/Card/Card'
 import CompanyPageDeleteModal from './CompanyPageDeleteModal'
-import { deleteCompanyAction, fetchCompaniesAction, fetchCompanyByIdAction } from '../../redux/actions/companyActions'
 
 const CompanyPageCard = ({ company }) => {
     const dispatch = useDispatch()
 
     const { companyId, companyName } = company
     const [openModal, setOpenModal] = useState(false)
-    const [isDeleting, setIsDeleting] = useState(false)
+    const [isLoading, setIsLoading] = useState(false);
 
     const handleOpenModal = () => {
         setOpenModal(true)
@@ -26,15 +26,22 @@ const CompanyPageCard = ({ company }) => {
     }
 
     const handleDelete = async () => {
-        setIsDeleting(true)
+        setIsLoading(true)
         await dispatch(deleteCompanyAction(companyId))
-        setIsDeleting(false)
+        setIsLoading(false)
         dispatch(fetchCompaniesAction())
     }
 
     const handleEdit = () => {
         dispatch(fetchCompanyByIdAction(companyId))
     }
+
+    const handleDeleteWithLoading = async () => {
+        setIsLoading(true);
+        await handleDelete();
+        setIsLoading(false);
+        handleCloseModal();
+    };
 
     return (
         <Card>
@@ -54,14 +61,15 @@ const CompanyPageCard = ({ company }) => {
                 openModal={openModal}
                 handleCloseModal={handleCloseModal}
                 handleDelete={handleDelete}
-                isLoading={isDeleting}
+                isLoading={isLoading}
+                handleDeleteWithLoading={handleDeleteWithLoading}
             />
         </Card>
     )
 }
 
 CompanyPageCard.propTypes = {
-    company: PropTypes.object.isRequired,
+    company: PropTypes.object.isRequired
 }
 
 export default CompanyPageCard

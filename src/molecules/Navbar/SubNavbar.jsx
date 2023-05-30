@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import PropTypes from 'prop-types'
+
 import { InputBase, IconButton, Box } from '@mui/material'
 import { FaSearch, FaPlus } from 'react-icons/fa'
 import { Link } from 'react-router-dom'
@@ -7,6 +8,7 @@ import { useDispatch } from 'react-redux'
 
 import { useDebounce } from '../../hooks/useDebounce'
 import { fetchCompaniesAction } from '../../redux/actions/companyActions'
+import { useSelector } from 'react-redux'
 
 const SubNavbar = ({ isAuth }) => {
     const dispatch = useDispatch()
@@ -21,7 +23,7 @@ const SubNavbar = ({ isAuth }) => {
         if (isAuth) {
             dispatch(fetchCompaniesAction(debouncedSearchCompanyTerm));
         }
-    }, [debouncedSearchCompanyTerm, dispatch, isAuth]);
+    }, [debouncedSearchCompanyTerm]);
 
     return (
         <div>

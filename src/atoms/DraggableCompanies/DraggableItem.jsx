@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { Draggable } from 'react-beautiful-dnd';
 
 import DraggableItemName from './DraggableItemName';
@@ -22,5 +23,10 @@ const DraggableItem = ({ item, index }) => {
         </Draggable>
     );
 };
+
+DraggableItem.propTypes = {
+    item: PropTypes.object,
+    index: PropTypes.number
+}
 
 export default DraggableItem;

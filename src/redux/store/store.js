@@ -7,14 +7,14 @@ import rootReducer from '../reducers/rootReducer';
 
 const persistConfig = {
     key: 'root',
-    storage,
+    storage
 };
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);
 
 const store = configureStore({
     reducer: persistedReducer,
-    middleware: [thunk],
+    middleware: [thunk]
 });
 
 const persistor = persistStore(store);

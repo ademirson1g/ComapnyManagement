@@ -1,7 +1,8 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { Grid } from '@mui/material';
 
-import DraggableColumn from './DraggableColumn';
+import DraggableColumn from '../../molecules/DraggableCompanies/DraggableColumn';
 
 const DraggableHeader = ({ columns }) => {
     return (
@@ -12,11 +13,14 @@ const DraggableHeader = ({ columns }) => {
                     title={column.title}
                     droppableId={column.droppableId}
                     items={column.items}
-                    isLastColumn={index === columns.length - 1}
                 />
             ))}
         </Grid>
     );
 };
+
+DraggableHeader.propTypes = {
+    columns: PropTypes.array
+}
 
 export default DraggableHeader;

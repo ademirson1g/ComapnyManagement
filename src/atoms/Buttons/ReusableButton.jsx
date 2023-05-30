@@ -1,5 +1,4 @@
 import React from 'react';
-import PropTypes from 'prop-types'
 import { Button } from '@mui/material';
 
 const ReusableButton = ({ onClick, children, startIcon, variant, style, size }) => {
@@ -23,10 +22,6 @@ const ReusableButton = ({ onClick, children, startIcon, variant, style, size }) 
             {children}
         </Button>
     );
-}
-
-ReusableButton.propTypes = {
-    onClick: PropTypes.func,
 }
 
 export default ReusableButton;

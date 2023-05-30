@@ -1,48 +1,35 @@
-import React, { useEffect } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
-import { Box, Grid, Pagination } from '@mui/material';
-import { Link } from 'react-router-dom';
+import React, { useEffect } from 'react'
 
-import { fetchCompaniesAction } from '../../redux/actions/companyActions';
-import { NO_COMPANIES_FOUND } from '../../atoms/TextExports/TextExports';
+import { useSelector, useDispatch } from 'react-redux'
+import { Box, CircularProgress, Grid } from '@mui/material'
+import { Link } from 'react-router-dom'
 
-import CompanyPageCard from './CompanyPageCard';
-import ReusableButton from '../../atoms/Buttons/ReusableButton';
+import { fetchCompaniesAction } from '../../redux/actions/companyActions'
+
+import CompanyPageCard from './CompanyPageCard'
+import ReusableButton from '../../atoms/Buttons/ReusableButton'
+import PaginationPage from '../../atoms/Pagination/PaginationPage'
 
 const Companies = () => {
-    const dispatch = useDispatch();
-    const { items: companies, pageIndex, pageSize, itemCount } = useSelector((state) => state.companies);
-    const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
+    const dispatch = useDispatch()
+    const { items: companies, pageIndex, pageSize, itemCount, loading } = useSelector((state) => state.companies)
+    const isAuthenticated = useSelector((state) => state.auth.isAuthenticated)
 
     useEffect(() => {
-        dispatch(fetchCompaniesAction());
-    }, [dispatch]);
+        dispatch(fetchCompaniesAction())
+    }, [dispatch])
 
     const handlePageChange = (event, newPageIndex) => {
-        dispatch(fetchCompaniesAction('', newPageIndex, pageSize));
-    };
+        dispatch(fetchCompaniesAction('', newPageIndex, pageSize))
+    }
 
-    const renderPagination = () => {
-        const pageCount = Math.ceil(itemCount / pageSize);
-
-        if (pageCount === 0) {
-            return (
-                <p>
-                    {NO_COMPANIES_FOUND}
-                </p>
-            );
-        }
-
+    if (loading) {
         return (
-            <Pagination
-                count={pageCount}
-                page={pageIndex}
-                onChange={handlePageChange}
-                color='primary'
-                shape='rounded'
-            />
+            <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '50vh' }}>
+                <CircularProgress />
+            </div>
         );
-    };
+    }
 
     return (
         <div>
@@ -71,10 +58,14 @@ const Companies = () => {
                 transform='translateX(-50%)'
                 maxWidth={400}
             >
-                {renderPagination()}
+                <PaginationPage
+                    pageCount={Math.ceil(itemCount / pageSize)}
+                    pageIndex={pageIndex}
+                    onChange={handlePageChange}
+                />
             </Box>
         </div>
-    );
-};
+    )
+}
 
-export default Companies;
+export default Companies

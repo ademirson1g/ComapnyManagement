@@ -1,14 +1,13 @@
 import React from 'react'
+
 import { useGoogleLogin } from 'react-use-googlelogin'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 
 import { login } from '../../redux/actions/authActions'
 import HomePageLogin from './HomePageLogin'
-import { useSelector } from 'react-redux'
 
 const Homepage = () => {
     const dispatch = useDispatch()
-
     const isAuth = useSelector((state => state.auth.isAuthenticated))
 
     const { signIn } = useGoogleLogin({
